@@ -1,4 +1,8 @@
-product,price,category
-Laptop,1200,Electronics
-Phone,800,Electronics
-Chair,150,Furniture
+product,price,category,month
+Laptop,1200,Electronics,January
+Phone,800,Electronics,January
+Chair,150,Furniture,February
+Table,300,Furniture,March
+Camera,600,Electronics,March
+TV,1400,Electronics,April
+Sofa,900,Furniture,April
