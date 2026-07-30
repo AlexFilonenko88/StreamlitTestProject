@@ -18,6 +18,13 @@ if 'df' in st.session_state:
 
     fig, ax = plt.subplots()
     ax.hist(filtered_df.price)
-    st.pyplot(fig)
+
+    tab_1, tab_2 = st.tabs(['Гистограмма', 'Линейный график'])
+    with tab_1:
+        fig, ax = plt.subplots()
+        ax.hist(filtered_df.price)
+        st.pyplot(fig)
+    with tab_1:
+        st.line_chart(filtered_df.price)
 else:
     st.write('Загрузите данные')
