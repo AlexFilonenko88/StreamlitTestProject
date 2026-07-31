@@ -3,10 +3,17 @@ import pandas as pd
 
 
 #df = pd.read_csv('data.csv')
-file = st.file_uploader('Выбирите CSV файл')
+file = st.file_uploader(
+    'Выбирите CSV файл',
+    type=['xlsx', 'csv']
+)
 
 if file is not None:
-    df = pd.read_csv(file)
+    if file.name.endswith('.csv'):
+        df = pd.read_csv(file)
+    else:
+        df = pd.read_excel(file)
+
     st.session_state['df'] = df
 
     price_by_categories = df.groupby('category').price.sum().reset_index()
