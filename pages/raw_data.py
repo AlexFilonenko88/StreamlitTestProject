@@ -20,8 +20,9 @@ if file is not None:
             df = pd.read_csv(file)
         else:
             df = pd.read_excel(file)
-    except:
-        st.error('Не удалось прочитать файл')
+    except (pd.errors.ParserError, pd.errors.EmptyDataError, UnicodeDecodeError, ValueError) as e:
+        st.error(f'Не удалось прочитать файл: {e}')
+        st.stop()
 
     if not all(column in df.columns for column in required_columns):
         st.error('Некорректная структура файла')
