@@ -15,10 +15,13 @@ required_columns = [
 ]
 
 if file is not None:
-    if file.name.endswith('.csv'):
-        df = pd.read_csv(file)
-    else:
-        df = pd.read_excel(file)
+    try:
+        if file.name.endswith('.csv'):
+            df = pd.read_csv(file)
+        else:
+            df = pd.read_excel(file)
+    except:
+        st.error('Не удалось прочитать файл')
 
     if not all(column in df.columns for column in required_columns):
         st.error('Некорректная структура файла')
