@@ -2,18 +2,24 @@ import streamlit as st
 import pandas as pd
 
 
-df = pd.read_csv('data.csv')
-st.session_state['df'] = df
+#df = pd.read_csv('data.csv')
+file = st.file_uploader('Выбирите CSV файл')
 
-price_by_categories = df.groupby('category').price.sum().reset_index()
+if file is not None:
+    df = pd.read_csv(file)
+    st.session_state['df'] = df
 
-col_1, col_2 = st.columns(2)
+    price_by_categories = df.groupby('category').price.sum().reset_index()
 
-with col_1:
-    st.dataframe(df)
+    col_1, col_2 = st.columns(2)
 
-with col_2:
-    st.dataframe(price_by_categories)
+    with col_1:
+        st.dataframe(df)
 
-with st.expander('Подробная информация'):
-    st.write(df.describe())
+    with col_2:
+        st.dataframe(price_by_categories)
+
+    with st.expander('Подробная информация'):
+        st.write(df.describe())
+else:
+    st.write('Данные еще не загружены')
