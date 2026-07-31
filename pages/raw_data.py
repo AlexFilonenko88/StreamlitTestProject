@@ -2,18 +2,43 @@ import streamlit as st
 import pandas as pd
 
 
-df = pd.read_csv('data.csv')
-st.session_state['df'] = df
+#df = pd.read_csv('data.csv')
+file = st.file_uploader(
+    'Выбирите CSV файл',
+    type=['xlsx', 'csv']
+)
 
-price_by_categories = df.groupby('category').price.sum().reset_index()
+required_columns = [
+    'product',
+    'price',
+    'category'
+]
 
-col_1, col_2 = st.columns(2)
+if file is not None:
+    try:
+        if file.name.endswith('.csv'):
+            df = pd.read_csv(file)
+        else:
+            df = pd.read_excel(file)
+    except:
+        st.error('Не удалось прочитать файл')
 
-with col_1:
-    st.dataframe(df)
+    if not all(column in df.columns for column in required_columns):
+        st.error('Некорректная структура файла')
+    else:
+        st.session_state['df'] = df
 
-with col_2:
-    st.dataframe(price_by_categories)
+        price_by_categories = df.groupby('category').price.sum().reset_index()
 
-with st.expander('Подробная информация'):
-    st.write(df.describe())
+        col_1, col_2 = st.columns(2)
+
+        with col_1:
+            st.dataframe(df)
+
+        with col_2:
+            st.dataframe(price_by_categories)
+
+        with st.expander('Подробная информация'):
+            st.write(df.describe())
+else:
+    st.write('Данные еще не загружены')
