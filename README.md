@@ -2,6 +2,8 @@
 
 Учебное multi-page приложение на Streamlit для загрузки, просмотра и анализа CSV/Excel-файлов с товарами.
 
+Публикация на https://streamlit.io/cloud, проект https://apptestproject-ehuharv6kkwjsq3gzn7wp7.streamlit.app/raw_data
+
 ## Возможности
 
 - Загрузка данных из `.csv` или `.xlsx` файла
