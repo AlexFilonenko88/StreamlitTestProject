@@ -7,15 +7,11 @@ if 'df' in st.session_state:
 
     if 'category' not in st.session_state:
         category = 'Electronics'
-    #st.session_state['category'] = category
 
     category = st.selectbox('Категории', df.category.unique())
     st.session_state['category'] = category
 
     filtered_df = df[df['category'] == category]
-
-    #fig, ax = plt.subplots()
-    #ax.hist(filtered_df.price)
 
     tab_1, tab_2 = st.tabs(['Гистограмма', 'Линейный график'])
     with tab_1:
